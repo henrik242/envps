@@ -25,61 +25,22 @@
 */
 
 #include <iostream>
-
-#include <cctype>
-#include <cstdio>
-#include <cstddef>
-#include <cstring>
-
 #include "../process.hpp"
 
 int main(int argc, char **argv) {
-  std::vector<ngs::ps::NGS_PROCID> pid;
-  if (argc >= 2 && (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "-help") == 0)) {
-    printf("usage: xproc <options>\n  options:\n    -h or -help\n    -e or -exec <command>\n    -f or -file <filename>\n");
+    if (argc != 2) {
+        printf("procenv <pid>\n");
+        return 0;
+    }
+    int thepid = std::stoi(argv[1]);
+    std::vector<ngs::ps::NGS_PROCID> pids = ngs::ps::proc_id_enum();
+
+    for (std::size_t i = 0; i < pids.size(); i++) {
+        std::vector<std::string> env = ngs::ps::environ_from_proc_id(pids[i]);
+        for (std::size_t j = 0; j < env.size(); j++)
+          if (pids[i] == thepid) {
+            std::cout << env[j] << "\n";
+          }
+        }
     return 0;
-  } else if (argc >= 3 && (strcmp(argv[1], "-e") == 0 || strcmp(argv[1], "-exec") == 0)) {
-    std::string command;
-    for (int i = 2; i < argc; i++)
-      command += std::string(argv[i]) + " ";
-    if (!command.empty() && command.back() == ' ')
-      command.pop_back();
-    ngs::ps::NGS_PROCID proc_id = ngs::ps::spawn_child_proc_id(command, false);
-    while (proc_id != 0 && !ngs::ps::child_proc_id_is_complete(proc_id));
-    printf("%s", ngs::ps::read_from_stdout_for_child_proc_id(proc_id).c_str());
-    ngs::ps::free_stdout_for_child_proc_id(proc_id);
-    ngs::ps::free_stdin_for_child_proc_id(proc_id);
-    return 0;
-  } else if (argc == 1) {
-    pid = ngs::ps::proc_id_enum();
-  } else if (argc >= 3) {
-    if (!(strcmp(argv[1], "-f") == 0 || strcmp(argv[1], "-file") == 0))
-      return 0;
-  }
-  for (int i = 2; i < argc; i++) {
-    std::vector<ngs::ps::NGS_PROCID> exe = ngs::ps::proc_id_from_exe(argv[i]);
-    std::vector<ngs::ps::NGS_PROCID> cwd = ngs::ps::proc_id_from_cwd(argv[i]);
-    pid.insert(pid.end(), exe.begin(), exe.end());
-    pid.insert(pid.end(), cwd.begin(), cwd.end());
-  }
-  for (std::size_t i = 0; i < pid.size(); i++) {
-    std::string exe = ngs::ps::exe_from_proc_id(pid[i]);
-    if (!exe.empty()) std::cout << "pid[" << i << "]: " << pid[i] << ", exe: " << exe << "\n";
-    std::string cwd = ngs::ps::cwd_from_proc_id(pid[i]);
-    if (!cwd.empty()) std::cout << "pid[" << i << "]: " << pid[i] << ", cwd: " << cwd << "\n";
-    std::string comm = ngs::ps::comm_from_proc_id(pid[i]);
-    if (!comm.empty()) std::cout << "pid[" << i << "]: " << pid[i] << ", comm: " << comm << "\n";
-    std::vector<ngs::ps::NGS_PROCID> ppid = ngs::ps::parent_proc_id_from_proc_id(pid[i]);
-    if (!ppid.empty()) std::cout << "pid[" << i << "]: " << pid[i] << ", ppid: " << ppid[0] << "\n";
-    std::vector<ngs::ps::NGS_PROCID> cpid = ngs::ps::proc_id_from_parent_proc_id(pid[i]);
-    for (std::size_t j = 0; j < cpid.size(); j++)
-      std::cout << "pid[" << i << "]: " << pid[i] << ", cpid[" << j << "]: " << cpid[j] << "\n";
-    std::vector<std::string> cmd = ngs::ps::cmdline_from_proc_id(pid[i]);
-    for (std::size_t j = 0; j < cmd.size(); j++)
-      std::cout << "pid[" << i << "]: " << pid[i] << ", cmd[" << j << "]: " << cmd[j] << "\n";
-    std::vector<std::string> env = ngs::ps::environ_from_proc_id(pid[i]);
-    for (std::size_t j = 0; j < env.size(); j++)
-      std::cout << "pid[" << i << "]: " << pid[i] << ", env[" << j << "]: " << env[j] << "\n";
-  }
-  return 0;
 }
