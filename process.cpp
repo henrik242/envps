@@ -25,29 +25,9 @@
 
 */
 
-#include <unordered_map>
-#include <algorithm>
-#include <sstream>
-#include <thread>
 #include <mutex>
 
-#include <cstdlib>
-#include <cstddef>
-#include <cstdint>
-#include <cstring>
-#include <climits>
-#include <cstdio>
-
 #include "process.hpp"
-
-#if !defined(_WIN32)
-#include <signal.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#endif
 
 #if defined(_WIN32)
 #include <shlwapi.h>

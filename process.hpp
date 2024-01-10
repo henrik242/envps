@@ -37,30 +37,9 @@ namespace ngs::ps {
   typedef unsigned long NGS_PROCID;
   #endif
 
-  NGS_PROCID proc_id_from_self();
   std::vector<NGS_PROCID> proc_id_enum();
-  bool proc_id_exists(NGS_PROCID proc_id);
-  bool proc_id_suspend(NGS_PROCID proc_id);
-  bool proc_id_resume(NGS_PROCID proc_id);
-  bool proc_id_kill(NGS_PROCID proc_id);
-  std::vector<NGS_PROCID> parent_proc_id_from_proc_id(NGS_PROCID proc_id);
-  std::vector<NGS_PROCID> proc_id_from_parent_proc_id(NGS_PROCID parent_proc_id);
-  std::vector<NGS_PROCID> proc_id_from_exe(std::string exe);
-  std::vector<NGS_PROCID> proc_id_from_cwd(std::string cwd);
-  std::string exe_from_proc_id(NGS_PROCID proc_id);
-  std::string cwd_from_proc_id(NGS_PROCID proc_id);
-  std::string comm_from_proc_id(NGS_PROCID proc_id);
-  std::vector<std::string> cmdline_from_proc_id(NGS_PROCID proc_id);
   std::vector<std::string> environ_from_proc_id(NGS_PROCID proc_id);
   std::string envvar_value_from_proc_id(NGS_PROCID proc_id, std::string name);
   bool envvar_exists_from_proc_id(NGS_PROCID proc_id, std::string name);
-  NGS_PROCID spawn_child_proc_id(std::string command, bool wait);
-  void stdout_set_buffer_limit(long long limit);
-  std::string read_from_stdout_for_child_proc_id(NGS_PROCID proc_id);
-  long long write_to_stdin_for_child_proc_id(NGS_PROCID proc_id, std::string input);
-  bool child_proc_id_is_complete(NGS_PROCID proc_id);
-  std::string read_from_stdin_for_self();
-  bool free_stdout_for_child_proc_id(NGS_PROCID proc_id);
-  bool free_stdin_for_child_proc_id(NGS_PROCID proc_id);
 
 } // namespace ngs::ps

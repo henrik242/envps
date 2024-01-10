@@ -25,7 +25,7 @@
 */
 
 #include <iostream>
-#include "../process.hpp"
+#include "process.hpp"
 
 int main(int argc, char **argv) {
     if (argc != 2) {
