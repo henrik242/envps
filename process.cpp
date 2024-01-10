@@ -25,6 +25,7 @@
 
 */
 
+#include <unordered_map>
 #include <mutex>
 
 #include "process.hpp"
