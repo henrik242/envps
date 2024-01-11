@@ -1,7 +1,13 @@
 procenv
 -------
-
 Show process environment variables
+
+Installation
+------------
+Just run `make` or install with Homebrew/Linuxbrew:
+```
+$ brew install henrik242/brew/procenv
+```
 
 History
 -------
