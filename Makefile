@@ -1,7 +1,7 @@
 OS := $(shell uname)
 COMPILER := $(shell test "${OS}" = "Linux" -a -x "/bin/g++" && echo "_gcc")
 
-BUILD_Darwin = clang++ procenv.cpp process.cpp -o procenv -std=c++17 -Wall -arch arm64 -arch x86_64
+BUILD_Darwin = clang++ procenv.cpp process.cpp -o procenv -g -std=c++17 -Wall -arch arm64 -arch x86_64
 BUILD_Linux_gcc = g++ procenv.cpp process.cpp -o procenv -std=c++17 -Wall -static-libgcc -static-libstdc++ -static
 BUILD_Linux = clang++ procenv.cpp process.cpp -o procenv -std=c++17 -Wall
 BUILD_FreeBSD = clang++ procenv.cpp process.cpp -o procenv -std=c++17 -Wall -lelf -lkvm -lpthread -static
@@ -13,7 +13,7 @@ BUILD_Windows = g++ procenv.cpp process.cpp -o procenv.exe -std=c++17 -Wall -sta
 
 BUILD = ${BUILD_${OS}${COMPILER}}
 
-procenv: procenv.cpp process.cpp process.hpp
+procenv: procenv.cpp process.cpp process.hpp Makefile
 ifeq (${BUILD},)
 	@echo "Unsupported OS/compiler combination: ${OS}${COMPILER}"
 	@exit 1
