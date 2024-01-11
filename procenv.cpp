@@ -25,17 +25,24 @@
 */
 
 #include <iostream>
+#include <exception>
 #include "process.hpp"
 
 int main(int argc, char **argv) {
     if (argc != 2) {
-        printf("procenv <pid>\n");
+        std::cout << "procenv <pid>" << "\n";
         return 0;
     }
-    int proc_id = std::stoi(argv[1]);
+    int proc_id;
+    try {
+      proc_id = std::stoi(argv[1]);
+    } catch (std::exception& e) {
+      std::cout << "Illegal PID: " << argv[1] << "\n";
+      return 0;
+    }
     std::vector<std::string> env = ngs::ps::environ_from_proc_id(proc_id);
     for (std::size_t j = 0; j < env.size(); j++) {
-        std::cout << env[j] << "\n";
+      std::cout << env[j] << "\n";
     }
     return 0;
 }
