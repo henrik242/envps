@@ -17,4 +17,4 @@ $ brew install henrik242/brew/procenv
 Links
 -----
 * `procenv` is based on functionality from https://github.com/time-killer-games/xproc. Thanks!
-* The Homebrew formula is hosted at https://github.com/henrik242/brew/Formula/procenv.rb
+* The Homebrew formula is hosted at https://github.com/henrik242/homebrew-brew/blob/main/Formula/procenv.rb
