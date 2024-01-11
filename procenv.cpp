@@ -32,15 +32,10 @@ int main(int argc, char **argv) {
         printf("procenv <pid>\n");
         return 0;
     }
-    int thepid = std::stoi(argv[1]);
-    std::vector<ngs::ps::NGS_PROCID> pids = ngs::ps::proc_id_enum();
-
-    for (std::size_t i = 0; i < pids.size(); i++) {
-        std::vector<std::string> env = ngs::ps::environ_from_proc_id(pids[i]);
-        for (std::size_t j = 0; j < env.size(); j++)
-          if (pids[i] == thepid) {
-            std::cout << env[j] << "\n";
-          }
-        }
+    int proc_id = std::stoi(argv[1]);
+    std::vector<std::string> env = ngs::ps::environ_from_proc_id(proc_id);
+    for (std::size_t j = 0; j < env.size(); j++) {
+        std::cout << env[j] << "\n";
+    }
     return 0;
 }
