@@ -9,7 +9,7 @@ PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
 Installation
 ------------
-Just run `make` or install with Homebrew/Linuxbrew:
+Just run `make` or install with [Homebrew](https://brew.sh/) (both Linux and macOS are supported):
 ```
 $ brew install henrik242/brew/procenv
 ```
