@@ -30,7 +30,7 @@
 
 int main(int argc, char **argv) {
     if (argc != 2) {
-        std::cout << "procenv <pid>" << "\n";
+        std::cout << "envps <pid>" << "\n";
         return 0;
     }
     int proc_id;
