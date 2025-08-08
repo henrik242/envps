@@ -16,5 +16,5 @@ $ brew install henrik242/brew/envps
 
 Links
 -----
-* `envps` is based on functionality from https://github.com/time-killer-games/xproc. Thanks!
+* `envps` is based on functionality from [an old version](https://github.com/henrik242/xproc/tree/fd06a3e5978c99a33ef57bc13b577eab8648cdcd) of https://github.com/samuelvenable/xproc. Thanks!
 * The Homebrew formula is hosted at https://github.com/henrik242/homebrew-brew/blob/main/Formula/envps.rb
