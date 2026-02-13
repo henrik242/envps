@@ -30,19 +30,19 @@
 
 int main(int argc, char **argv) {
     if (argc != 2) {
-        std::cout << "envps <pid>" << "\n";
-        return 0;
+        std::cerr << "Usage: envps <pid>" << "\n";
+        return 1;
     }
     int proc_id;
     try {
-      proc_id = std::stoi(argv[1]);
-    } catch (std::exception& e) {
-      std::cout << "Illegal PID: " << argv[1] << "\n";
-      return 0;
+        proc_id = std::stoi(argv[1]);
+    } catch (std::exception &e) {
+        std::cerr << "Illegal PID: " << argv[1] << "\n";
+        return 1;
     }
     std::vector<std::string> env = ngs::ps::environ_from_proc_id(proc_id);
-    for (std::size_t j = 0; j < env.size(); j++) {
-      std::cout << env[j] << "\n";
+    for (const auto &entry : env) {
+        std::cout << entry << "\n";
     }
     return 0;
 }
