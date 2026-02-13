@@ -1,0 +1,73 @@
+name: release envps
+
+on:
+  push:
+    tags:
+      - '[0-9].[0-9]'
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: build
+        run: make
+      - uses: actions/upload-artifact@v4
+        with:
+          name: envps-macos
+          path: envps
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: build
+        run: make
+      - uses: actions/upload-artifact@v4
+        with:
+          name: envps-linux
+          path: envps
+  build-freebsd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: build
+        uses: cross-platform-actions/action@v0.32.0
+        with:
+          operating_system: freebsd
+          version: '14.2'
+          run: sudo pkg install -y gmake && gmake
+      - uses: actions/upload-artifact@v4
+        with:
+          name: envps-freebsd
+          path: envps
+  build-netbsd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: build
+        uses: cross-platform-actions/action@v0.32.0
+        with:
+          operating_system: netbsd
+          version: '10.1'
+          run: sudo pkgin -y install gmake && gmake
+      - uses: actions/upload-artifact@v4
+        with:
+          name: envps-netbsd
+          path: envps
+  release:
+    needs: [build-macos, build-linux, build-freebsd, build-netbsd]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+      - name: rename artifacts
+        run: |
+          mv envps-macos/envps envps-macos-arm64-x86_64
+          mv envps-linux/envps envps-linux-x86_64
+          mv envps-freebsd/envps envps-freebsd-x86_64
+          mv envps-netbsd/envps envps-netbsd-x86_64
+      - name: create release
+        run: gh release create ${{ github.ref_name }} envps-*-* --repo ${{ github.repository }} --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
