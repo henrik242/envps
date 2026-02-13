@@ -38,7 +38,5 @@ namespace ngs::ps {
   #endif
 
   std::vector<std::string> environ_from_proc_id(NGS_PROCID proc_id);
-  std::string envvar_value_from_proc_id(NGS_PROCID proc_id, std::string name);
-  bool envvar_exists_from_proc_id(NGS_PROCID proc_id, std::string name);
 
 } // namespace ngs::ps
