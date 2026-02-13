@@ -24,13 +24,20 @@
 
 */
 
+#include <cstring>
 #include <iostream>
 #include <exception>
 #include "process.hpp"
 
+#define VERSION "1.5"
+
 int main(int argc, char **argv) {
+    if (argc == 2 && strcmp(argv[1], "-v") == 0) {
+        std::cout << "envps " << VERSION << "\n";
+        return 0;
+    }
     if (argc != 2) {
-        std::cerr << "Usage: envps <pid>" << "\n";
+        std::cerr << "Usage: envps [-v] <pid>" << "\n";
         return 1;
     }
     int proc_id;
