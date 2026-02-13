@@ -39,6 +39,7 @@
 #elif (defined(__APPLE__) && defined(__MACH__))
   #include <sys/sysctl.h>
 #elif (defined(__FreeBSD__) || defined(__DragonFly__) || defined(__OpenBSD__))
+  #include <fcntl.h>
   #include <sys/param.h>
   #include <sys/sysctl.h>
   #include <sys/user.h>
@@ -48,6 +49,7 @@
   #include <sys/sysctl.h>
   #include <kvm.h>
 #elif defined(__sun)
+  #include <fcntl.h>
   #include <kvm.h>
   #include <sys/param.h>
   #include <sys/time.h>
