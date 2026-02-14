@@ -29,7 +29,7 @@
 #include <exception>
 #include "process.hpp"
 
-#define VERSION "1.5"
+#define VERSION "1.6"
 
 int main(int argc, char **argv) {
     if (argc == 2 && strcmp(argv[1], "-v") == 0) {
