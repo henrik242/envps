@@ -3,7 +3,7 @@ name: release envps
 on:
   push:
     tags:
-      - '[0-9].[0-9]'
+      - '[0-9]*.[0-9]*'
 
 jobs:
   build-macos:
@@ -68,6 +68,6 @@ jobs:
           mv envps-freebsd/envps envps-freebsd-x86_64
           mv envps-netbsd/envps envps-netbsd-x86_64
       - name: create release
-        run: gh release create ${{ github.ref_name }} envps-*-* --repo ${{ github.repository }} --generate-notes
+        run: gh release create ${{ github.ref_name }} envps-*-* --repo ${{ github.repository }} --title "envps ${{ github.ref_name }}" --generate-notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
