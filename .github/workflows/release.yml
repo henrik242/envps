@@ -13,7 +13,10 @@ jobs:
       - name: install targets
         run: rustup target add aarch64-apple-darwin x86_64-apple-darwin
       - name: build
-        run: make
+        run: |
+          cargo build --release --target aarch64-apple-darwin
+          cargo build --release --target x86_64-apple-darwin
+          lipo -create target/aarch64-apple-darwin/release/envps target/x86_64-apple-darwin/release/envps -output envps
       - name: rename artifact
         run: mv envps envps-macos-arm64-x86_64
       - uses: actions/upload-artifact@v7

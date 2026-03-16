@@ -2,12 +2,8 @@ OS := $(shell uname)
 
 ifeq ($(OS),Darwin)
 envps:
-	cargo build --release --target aarch64-apple-darwin
-	cargo build --release --target x86_64-apple-darwin
-	lipo -create \
-		target/aarch64-apple-darwin/release/envps \
-		target/x86_64-apple-darwin/release/envps \
-		-output envps
+	cargo build --release
+	cp target/release/envps envps
 else ifeq ($(OS),Linux)
 envps:
 	cargo build --release --target x86_64-unknown-linux-musl
