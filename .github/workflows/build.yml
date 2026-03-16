@@ -19,6 +19,7 @@ jobs:
         with:
           name: envps-macos
           path: envps
+          archive: false
   build-linux:
     runs-on: ubuntu-latest
     steps:
@@ -33,6 +34,7 @@ jobs:
         with:
           name: envps-linux
           path: envps
+          archive: false
   build-freebsd:
     runs-on: ubuntu-latest
     steps:
@@ -51,6 +53,7 @@ jobs:
         with:
           name: envps-freebsd
           path: envps
+          archive: false
   build-netbsd:
     runs-on: ubuntu-latest
     steps:
@@ -69,3 +72,4 @@ jobs:
         with:
           name: envps-netbsd
           path: envps
+          archive: false
