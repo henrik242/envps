@@ -1,4 +1,6 @@
+#[cfg(not(target_os = "linux"))]
 use libc::{c_int, c_void, sysctl};
+#[cfg(not(target_os = "linux"))]
 use std::ptr;
 
 /// Read environment variables from a process by PID.
