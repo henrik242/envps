@@ -21,6 +21,7 @@ jobs:
         run: mv envps envps-macos-arm64-x86_64
       - uses: actions/upload-artifact@v7
         with:
+          name: envps-macos
           path: envps-macos-arm64-x86_64
           archive: false
   build-linux:
@@ -37,6 +38,7 @@ jobs:
         run: mv envps envps-linux-x86_64
       - uses: actions/upload-artifact@v7
         with:
+          name: envps-linux
           path: envps-linux-x86_64
           archive: false
   build-freebsd:
@@ -57,6 +59,7 @@ jobs:
         run: mv envps envps-freebsd-x86_64
       - uses: actions/upload-artifact@v7
         with:
+          name: envps-freebsd
           path: envps-freebsd-x86_64
           archive: false
   build-netbsd:
@@ -77,6 +80,7 @@ jobs:
         run: mv envps envps-netbsd-x86_64
       - uses: actions/upload-artifact@v7
         with:
+          name: envps-netbsd
           path: envps-netbsd-x86_64
           archive: false
   release:
