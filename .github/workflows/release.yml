@@ -9,7 +9,7 @@ jobs:
   build-macos:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: build
         run: make
       - name: rename artifact
@@ -21,7 +21,7 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: build
         run: make
       - name: rename artifact
@@ -33,7 +33,7 @@ jobs:
   build-freebsd:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: build
         uses: cross-platform-actions/action@v0.32.0
         with:
@@ -49,7 +49,7 @@ jobs:
   build-netbsd:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: build
         uses: cross-platform-actions/action@v0.32.0
         with:
