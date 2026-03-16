@@ -10,6 +10,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v6
+      - name: install targets
+        run: rustup target add aarch64-apple-darwin x86_64-apple-darwin
       - name: build
         run: make
       - name: rename artifact
@@ -22,6 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: install musl target
+        run: |
+          rustup target add x86_64-unknown-linux-musl
+          sudo apt-get update && sudo apt-get install -y musl-tools
       - name: build
         run: make
       - name: rename artifact
@@ -39,7 +45,11 @@ jobs:
         with:
           operating_system: freebsd
           version: '14.2'
-          run: sudo pkg install -y gmake && gmake
+          run: |
+            sudo pkg install -y gmake
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+            . "$HOME/.cargo/env"
+            gmake
       - name: rename artifact
         run: mv envps envps-freebsd-x86_64
       - uses: actions/upload-artifact@v7
@@ -55,7 +65,11 @@ jobs:
         with:
           operating_system: netbsd
           version: '10.1'
-          run: sudo pkgin -y install gmake && gmake
+          run: |
+            sudo pkgin -y install gmake
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+            . "$HOME/.cargo/env"
+            gmake
       - name: rename artifact
         run: mv envps envps-netbsd-x86_64
       - uses: actions/upload-artifact@v7
@@ -70,6 +84,6 @@ jobs:
     steps:
       - uses: actions/download-artifact@v8
       - name: create release
-        run: gh release create ${{ github.ref_name }} envps-*-* --repo ${{ github.repository }} --title "envps ${{ github.ref_name }}" --generate-notes
+        run: gh release create ${{ github.ref_name }} **/envps-*-* --repo ${{ github.repository }} --title "envps ${{ github.ref_name }}" --generate-notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

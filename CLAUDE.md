@@ -1,10 +1,10 @@
 # envps
 
-C++17 tool that shows process environment variables. Built with `make`.
+Rust tool that shows process environment variables. Built with `cargo` via `make`.
 
 ## Releasing
 
-1. Bump `VERSION` in `envps.cpp`
+1. Bump `VERSION` in `src/main.rs` and `version` in `Cargo.toml`
 2. Commit, tag, and push. Tags have **no `v` prefix** (e.g., `1.6`, not `v1.6`)
 3. The GitHub Actions release workflow (`.github/workflows/release.yml`) triggers on the tag push
 4. Update the Homebrew formula in `../homebrew-brew/Formula/envps.rb`:

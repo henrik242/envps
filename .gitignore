@@ -1,4 +1,4 @@
 envps
+target/
 .idea
 .DS_Store
-*.dSYM

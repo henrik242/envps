@@ -1,0 +1,13 @@
+[package]
+name = "envps"
+version = "2.0.0"
+edition = "2024"
+license = "MIT"
+description = "Show process environment variables"
+
+[dependencies]
+libc = "0.2"
+
+[profile.release]
+strip = true
+lto = true

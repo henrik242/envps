@@ -10,48 +10,62 @@ jobs:
   build-macos:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+      - name: install targets
+        run: rustup target add aarch64-apple-darwin x86_64-apple-darwin
       - name: build
         run: make
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: envps-macos
           path: envps
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+      - name: install musl target
+        run: |
+          rustup target add x86_64-unknown-linux-musl
+          sudo apt-get update && sudo apt-get install -y musl-tools
       - name: build
         run: make
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: envps-linux
           path: envps
   build-freebsd:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: build
         uses: cross-platform-actions/action@v0.32.0
         with:
           operating_system: freebsd
           version: '14.2'
-          run: sudo pkg install -y gmake && gmake
-      - uses: actions/upload-artifact@v4
+          run: |
+            sudo pkg install -y gmake
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+            . "$HOME/.cargo/env"
+            gmake
+      - uses: actions/upload-artifact@v7
         with:
           name: envps-freebsd
           path: envps
   build-netbsd:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: build
         uses: cross-platform-actions/action@v0.32.0
         with:
           operating_system: netbsd
           version: '10.1'
-          run: sudo pkgin -y install gmake && gmake
-      - uses: actions/upload-artifact@v4
+          run: |
+            sudo pkgin -y install gmake
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+            . "$HOME/.cargo/env"
+            gmake
+      - uses: actions/upload-artifact@v7
         with:
           name: envps-netbsd
           path: envps
