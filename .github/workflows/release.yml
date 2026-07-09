@@ -46,7 +46,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: build
-        uses: cross-platform-actions/action@v0.32.0
+        uses: cross-platform-actions/action@v1.3.0
         with:
           operating_system: freebsd
           version: '14.2'
@@ -67,7 +67,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: build
-        uses: cross-platform-actions/action@v0.32.0
+        uses: cross-platform-actions/action@v1.3.0
         with:
           operating_system: netbsd
           version: '10.1'
