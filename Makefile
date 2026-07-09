@@ -10,7 +10,7 @@ envps:
 	cp target/x86_64-unknown-linux-musl/release/envps envps
 else ifeq ($(OS),FreeBSD)
 envps:
-	RUSTFLAGS="-C target-feature=+crt-static" cargo build --release
+	cargo build --release
 	cp target/release/envps envps
 else ifeq ($(OS),NetBSD)
 envps:
